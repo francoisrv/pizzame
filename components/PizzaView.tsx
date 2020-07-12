@@ -24,17 +24,15 @@ const paintLayer = {
   'fill-extrusion-opacity': 0.6
 }
 
-const lat = 51.5144951
-const lng = -0.0824952
-
 type PizzaViewStateProps =
 & Pick<ReduxState, "restaurants">
+& Pick<ReduxState, "coords">
 
 interface PizzaViewActions {
   selectRestaurantAction: typeof selectRestaurant
 }
 
-const connector = (state: ReduxState): PizzaViewStateProps => pick(state, ['restaurants'])
+const connector = (state: ReduxState): PizzaViewStateProps => pick(state, ['restaurants', 'coords'])
 
 const actions: PizzaViewActions = {
   selectRestaurantAction: selectRestaurant
@@ -48,8 +46,8 @@ type PizzaViewProps =
 
 const PizzaView: React.FC<PizzaViewProps> = props => {
   const [viewport, setViewport] = React.useState<ViewportProps>({
-    latitude: lat,
-    longitude: lng,
+    latitude: props.coords[0],
+    longitude: props.coords[1],
     width: '100vw',
     height: '100vh',
     zoom: 15
