@@ -1,10 +1,15 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+
 import PizzaView from './components/PizzaView'
+import createStore from './redux/store'
+
+const { store } = createStore()
 
 ReactDOM.render(
-  <div>
+  <Provider store={ store }>
     <PizzaView />
-  </div>,
+  </Provider>,
   document.getElementById('root'),
 )

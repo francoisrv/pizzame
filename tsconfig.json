@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "outDir": "dist",
-    "rootDir": "src",
     "types": ["jest", "node"],
     "esModuleInterop": true,
     "lib": ["ES2015", "DOM"],
     "declaration": true,
     "declarationMap": true,
-    "target": "ES5"
+    "target": "ES5",
+    "resolveJsonModule": true
   }
 }

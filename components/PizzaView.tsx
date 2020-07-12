@@ -1,14 +1,15 @@
 import React from 'react'
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl'
 import ReactMapGL, { Marker, ViewportProps, Popup } from 'react-map-gl'
+import { pick } from 'lodash'
+import { connect } from 'react-redux'
+
 import Pizza from '../assets/pizza.png'
+import ReduxState from '../redux/state'
+import { selectRestaurant } from '../redux/actions/restaurants.actions'
+import PizzaMarker from './PizzaMarker'
 
 const TOKEN = 'pk.eyJ1IjoiZnJhbmxld2ViIiwiYSI6ImNqdzhjZHUyeTA4NWo0MXBkNTd4NzRhZXUifQ.-nXUbw5Lc7E7AQWptuxAhw'
 
-const Map = ReactMapboxGl({
-  accessToken:
-    'pk.eyJ1IjoiZnJhbmxld2ViIiwiYSI6ImNqdzhjZHUyeTA4NWo0MXBkNTd4NzRhZXUifQ.-nXUbw5Lc7E7AQWptuxAhw'
-})
 
 const paintLayer = {
   'fill-extrusion-color': '#aaa',
@@ -26,36 +27,26 @@ const paintLayer = {
 const lat = 51.5144951
 const lng = -0.0824952
 
-interface Place {
-  name: string
-  latitude: number
-  longitude: number
+type PizzaViewStateProps =
+& Pick<ReduxState, "restaurants">
+
+interface PizzaViewActions {
+  selectRestaurantAction: typeof selectRestaurant
 }
 
-const places: Place[] = [
-  {
-    name: 'Pizza by Toni',
-    latitude: lat - 0.002,
-    longitude: lng - 0.002
-  },
-  {
-    name: 'Napoli Pizza',
-    latitude: lat - 0.004,
-    longitude: lng + 0.004
-  },
-  {
-    name: 'Pizza Heaven',
-    latitude: lat + 0.004,
-    longitude: lng - 0.004
-  },
-  {
-    name: 'Little Italy',
-    latitude: lat + 0.005,
-    longitude: lng - 0.006
-  },
-]
+const connector = (state: ReduxState): PizzaViewStateProps => pick(state, ['restaurants'])
 
-const PizzaView: React.FC<{}> = () => {
+const actions: PizzaViewActions = {
+  selectRestaurantAction: selectRestaurant
+}
+
+const withStore = connect(connector, actions)
+
+type PizzaViewProps =
+& PizzaViewStateProps
+& PizzaViewActions
+
+const PizzaView: React.FC<PizzaViewProps> = props => {
   const [viewport, setViewport] = React.useState<ViewportProps>({
     latitude: lat,
     longitude: lng,
@@ -63,7 +54,6 @@ const PizzaView: React.FC<{}> = () => {
     height: '100vh',
     zoom: 15
   })
-  const [marker, setMarker] = React.useState<Place | null>(null)
   return (
     <ReactMapGL
       { ...viewport }
@@ -72,23 +62,23 @@ const PizzaView: React.FC<{}> = () => {
         setViewport(viewport)
       } }
     >
-      { places.map(place => (
-        <Marker key={ place.name } latitude={ place.latitude } longitude={ place.longitude }>
+      { props.restaurants.map(restaurant => (
+        <Marker key={ restaurant.name } latitude={ restaurant.latitude } longitude={ restaurant.longitude }>
           <div>
-            <img src={ Pizza } onClick={ () => setMarker(place) } />
+            <img
+              className="rotate"
+              src={ Pizza }
+              onClick={ () => props.selectRestaurantAction(restaurant) }
+              style={{
+                marginTop: -20
+              }}
+            />
           </div>
         </Marker>
       )) }
-      { marker && (
-        <Popup
-          latitude={ marker.longitude }
-          longitude={ marker.longitude }
-        >
-          <div>Hello</div>
-        </Popup>
-      ) }
+      <PizzaMarker />
     </ReactMapGL>
   )
 }
 
-export default PizzaView
+export default withStore(PizzaView)

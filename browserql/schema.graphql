@@ -1,0 +1,22 @@
+type Restaurant @model {
+  name: String! @unique
+  rating: Int!
+  latitude: Float!
+  longitude: Float!
+}
+
+type Pizza @model {
+  name: String! @unique(with: "restaurant")
+  restaurant: Restaurant!
+  rating: Int!
+  ingredients: [Ingredient]!
+}
+
+type Ingredient @model {
+  name: String! @unique
+}
+
+type State @state {
+  selectedRestaurant: Restaurant
+  selectedPizzas: [Pizza]!
+}

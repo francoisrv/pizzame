@@ -1,0 +1,21 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.rotate{
+  animation: rotate 5.5s linear infinite; 
+}
+@keyframes rotate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1);}
+}
+
+
+/* SPINNER JUST FOR DEMO */
+.spinner{
+  display:inline-block; width: 50px; height: 50px;
+  border-radius: 50%;
+  box-shadow: inset -2px 0 0 2px #0bf;
+}
