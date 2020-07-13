@@ -7,34 +7,49 @@ import Typography from '@material-ui/core/Typography'
 import Link from '@material-ui/core/Link'
 import { compose } from 'redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { setCoords, setMapHeight } from '../redux/actions/map.actions'
+import { selectRestaurant } from '../redux/actions/restaurants.actions'
 
 type PizzaMarkerStore =
-& Pick<ReduxState, "selectedRestaurant">
+& Pick<ReduxState, "previewedRestaurant">
 
-const connector = (state: ReduxState): PizzaMarkerStore => pick(state, ['selectedRestaurant'])
+interface PizzaMarkeActions {
+  setCoordsAction: typeof setCoords
+  setMapHeightAction: typeof setMapHeight
+  selectRestaurantAction: typeof selectRestaurant
+}
 
-const withStore = connect(connector)
+const connector = (state: ReduxState): PizzaMarkerStore => pick(state, ['previewedRestaurant'])
+
+const actions: PizzaMarkeActions = {
+  setCoordsAction: setCoords,
+  setMapHeightAction: setMapHeight,
+  selectRestaurantAction: selectRestaurant
+}
+
+const withStore = connect(connector, actions)
 
 type PizzaMarkerProps =
 & PizzaMarkerStore
 & RouteComponentProps<any>
+& PizzaMarkeActions
 
 const PizzaMarker: React.FC<PizzaMarkerProps> = props => {
-  if (!props.selectedRestaurant) {
+  if (!props.previewedRestaurant) {
     return <div />
   }
 
   function goToRestaurant() {
-    props.history.push(`/restaurants/${ kebabCase(props.selectedRestaurant.name) }`)
+    props.selectRestaurantAction(props.previewedRestaurant)
   }
 
   return (
     <Popup
-      latitude={ props.selectedRestaurant.latitude }
-      longitude={ props.selectedRestaurant.longitude }
+      latitude={ props.previewedRestaurant.latitude }
+      longitude={ props.previewedRestaurant.longitude }
     >
       <Typography onClick={ goToRestaurant }>
-        { props.selectedRestaurant.name }
+        { props.previewedRestaurant.name }
       </Typography>
     </Popup>
   )

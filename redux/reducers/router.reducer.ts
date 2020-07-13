@@ -1,5 +1,6 @@
 import { connectRouter } from 'connected-react-router'
+import config from '../../config'
 
-import { history } from '{{ routerPackageName }}'
+export const router = connectRouter(config.history)
 
-export default connectRouter(history)
+export default router

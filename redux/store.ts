@@ -8,6 +8,8 @@ import middlewares from './middlewares'
 import whitelist from './storage-white-list'
 import ReduxState from './state'
 import { ReduxActions } from './actions'
+import sagaMiddleware from '../sagas/middleware'
+import rootSaga from '../sagas/rootSaga'
 
 const persistConfig = {
   key: config.storageKey,
@@ -31,6 +33,8 @@ export default function() {
   
   // @ts-ignore
   const persistor = persistStore(store)
+
+  sagaMiddleware.run(rootSaga)
 
   return { persistor, store }
 }
