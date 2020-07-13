@@ -1,9 +1,11 @@
 import { Restaurant } from "../types";
 
 interface ReduxState {
-  selectedRestaurant: Restaurant | null
-  restaurants: Restaurant[]
   coords: [number, number]
+  mapHeight: number
+  previewedRestaurant: Restaurant | null
+  restaurants: Restaurant[]
+  selectedRestaurant: Restaurant | null
 }
 
 export default ReduxState

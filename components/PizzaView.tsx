@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import Pizza from '../assets/pizza.png'
 import ReduxState from '../redux/state'
-import { selectRestaurant } from '../redux/actions/restaurants.actions'
+import { previewRestaurant } from '../redux/actions/restaurants.actions'
 import PizzaMarker from './PizzaMarker'
 
 const TOKEN = 'pk.eyJ1IjoiZnJhbmxld2ViIiwiYSI6ImNqdzhjZHUyeTA4NWo0MXBkNTd4NzRhZXUifQ.-nXUbw5Lc7E7AQWptuxAhw'
@@ -27,15 +27,16 @@ const paintLayer = {
 type PizzaViewStateProps =
 & Pick<ReduxState, "restaurants">
 & Pick<ReduxState, "coords">
+& Pick<ReduxState, "mapHeight">
 
 interface PizzaViewActions {
-  selectRestaurantAction: typeof selectRestaurant
+  previewRestaurantAction: typeof previewRestaurant
 }
 
-const connector = (state: ReduxState): PizzaViewStateProps => pick(state, ['restaurants', 'coords'])
+const connector = (state: ReduxState): PizzaViewStateProps => pick(state, ['restaurants', 'coords', 'mapHeight'])
 
 const actions: PizzaViewActions = {
-  selectRestaurantAction: selectRestaurant
+  previewRestaurantAction: previewRestaurant
 }
 
 const withStore = connect(connector, actions)
@@ -49,9 +50,20 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
     latitude: props.coords[0],
     longitude: props.coords[1],
     width: '100vw',
-    height: '100vh',
+    height: `${ props.mapHeight }vh`,
     zoom: 15
   })
+
+  React.useEffect(() => {
+    setViewport({
+      latitude: props.coords[0],
+      longitude: props.coords[1],
+      width: '100vw',
+      height: `${ props.mapHeight }vh`,
+      zoom: 15
+    })
+  }, [props])
+
   return (
     <ReactMapGL
       { ...viewport }
@@ -66,7 +78,7 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
             <img
               className="rotate"
               src={ Pizza }
-              onClick={ () => props.selectRestaurantAction(restaurant) }
+              onClick={ () => props.previewRestaurantAction(restaurant) }
               style={{
                 marginTop: -20
               }}

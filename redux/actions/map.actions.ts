@@ -7,3 +7,10 @@ export function setCoords(coords: ReduxState["coords"]) {
     payload: { coords }
   }
 }
+
+export function setMapHeight(mapHeight: ReduxState["mapHeight"]) {
+  return {
+    type: ReduxActionType.SET_MAP_HEIGHT as ReduxActionType.SET_MAP_HEIGHT,
+    payload: { mapHeight }
+  }
+}

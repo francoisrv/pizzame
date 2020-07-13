@@ -7,3 +7,17 @@ export function selectRestaurant(restaurant: Restaurant) {
     payload: { restaurant }
   }
 }
+
+export function previewRestaurant(restaurant: Restaurant) {
+  return {
+    type: ReduxActionType.PREVIEW_RESTAURANT as ReduxActionType.PREVIEW_RESTAURANT,
+    payload: { restaurant }
+  }
+}
+
+export function selectRestaurantBySlug(slug: string) {
+  return {
+    type: ReduxActionType.SELECT_RESTAURANT_BY_SLUG as ReduxActionType.SELECT_RESTAURANT_BY_SLUG,
+    payload: { slug }
+  }
+}
