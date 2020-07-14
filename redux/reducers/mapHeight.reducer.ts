@@ -7,7 +7,7 @@ type State = ReduxState["mapHeight"]
 type Actions =
 & ReturnType<typeof setMapHeight>
 
-const initialState: State = 100
+const initialState: State = 0
 
 export default function mapHeightReducer(state: State = initialState, action: Actions): State {
   if (action.type === ReduxActionType.SET_MAP_HEIGHT) {

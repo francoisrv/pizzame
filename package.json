@@ -29,6 +29,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/redux-logger": "^3.0.8",
     "connected-react-router": "^6.8.0",
+    "geo-point": "^1.2.2",
     "lodash": "^4.17.19",
     "mapbox-gl": "^1.11.1",
     "parcel-bundler": "^1.12.4",

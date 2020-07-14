@@ -50,7 +50,7 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
     latitude: props.coords[0],
     longitude: props.coords[1],
     width: '100vw',
-    height: `${ props.mapHeight }vh`,
+    height: `100%`,
     zoom: 15
   })
 
@@ -59,7 +59,7 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
       latitude: props.coords[0],
       longitude: props.coords[1],
       width: '100vw',
-      height: `${ props.mapHeight }vh`,
+      height: `100%`,
       zoom: 15
     })
   }, [props])
@@ -69,7 +69,7 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
       { ...viewport }
       mapboxApiAccessToken={TOKEN}
       onViewportChange={ viewport => {
-        setViewport(viewport)
+        // setViewport(viewport)
       } }
     >
       { props.restaurants.map(restaurant => (
