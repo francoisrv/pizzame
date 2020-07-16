@@ -1,5 +1,5 @@
 import { find, kebabCase, startCase } from 'lodash'
-import { takeLatest, put, select } from 'redux-saga/effects'
+import { takeLatest, put, select, call } from 'redux-saga/effects'
 import Geopoint from 'geo-point'
 import { RESTAURANT_PATH } from '../paths'
 import { setCoords, setMapHeight } from '../redux/actions/map.actions'
@@ -24,19 +24,25 @@ function positionMapForRestaurantSelection(
   console.log(nextY)
 }
 
+let i = 0.000001
+
+async function wait() {
+  return new Promise(resolve => setTimeout(resolve, 1000))
+}
+
 function* selectRestaurantSaga(action: ReturnType<typeof selectRestaurant>) {
   const restaurantLatitude = action.payload.restaurant.latitude
   const restaurantLongitude = action.payload.restaurant.longitude
   const [mapLatitude, mapLongitude] = yield select(state => state.coords)
-  const startPoint = new Geopoint(TOP, mapLongitude)
-  const endPoint = new Geopoint(restaurantLatitude, mapLongitude)
-  const span = startPoint.calculateDistance(new Geopoint(BOTTOM, mapLongitude))
-  const distance = startPoint.calculateDistance(endPoint)
-  console.log(positionMapForRestaurantSelection(TOP, restaurantLatitude, CENTER))
+  console.log({ mapLatitude })
+  const distanceFromTop = TOP - restaurantLatitude
   yield put(setCoords([
-    51.51049510000001,
+    TOP,
     action.payload.restaurant.longitude
   ]))
+  i += 0.000001
+  yield call(wait)
+  // yield put(selectRestaurant(action.payload.restaurant))
   // yield put(setMapHeight(50))
   // yield put(goToAction(RESTAURANT_PATH, { params: { restaurantName: kebabCase(action.payload.restaurant.name) } }))
 }

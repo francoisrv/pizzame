@@ -51,7 +51,8 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
     longitude: props.coords[1],
     width: '100vw',
     height: `100%`,
-    zoom: 15
+    zoom: 15,
+    transitionDuration: 3000
   })
 
   React.useEffect(() => {

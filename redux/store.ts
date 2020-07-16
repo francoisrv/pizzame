@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware, compose, Store, AnyAction } from 'redux'
+import { createStore as createReduxStore, combineReducers, applyMiddleware, compose, Store, AnyAction } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -20,12 +20,12 @@ const persistConfig = {
 /**
  * Function to create a new Redux store
  */
-export default function() {
+export default function createStore() {
   const rootReducer = combineReducers(reducers)
   const persistedReducer = persistReducer(persistConfig, rootReducer)
 
   // @ts-ignore
-  const store: Store<ReduxState, ReduxActions> = createStore(
+  const store: Store<ReduxState, ReduxActions> = createReduxStore(
     persistedReducer,
     {},
     compose(applyMiddleware(...middlewares))
