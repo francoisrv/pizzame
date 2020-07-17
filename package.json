@@ -37,6 +37,7 @@
     "react-dom": "^16.13.1",
     "react-map-gl": "^5.2.7",
     "react-mapbox-gl": "^4.8.6",
+    "react-player": "^2.5.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
@@ -52,6 +53,7 @@
     "babel-jest": "^26.1.0",
     "describe-react": "^1.2.23",
     "jest": "^26.1.0",
+    "parcel-plugin-static-files-copy": "^2.4.3",
     "react-test-renderer": "^16.13.1",
     "typescript": "^3.9.6"
   }

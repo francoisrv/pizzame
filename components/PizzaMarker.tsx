@@ -1,6 +1,6 @@
 import React from 'react'
 import ReduxState from '../redux/state'
-import { pick } from 'lodash'
+import { pick, kebabCase } from 'lodash'
 import { connect } from 'react-redux'
 import { Popup } from 'react-map-gl'
 import Typography from '@material-ui/core/Typography'
@@ -8,6 +8,7 @@ import { compose } from 'redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { setCoords, setMapHeight } from '../redux/actions/map.actions'
 import { selectRestaurant } from '../redux/actions/restaurants.actions'
+import ReactPlayer from 'react-player'
 
 type PizzaMarkerStore =
 & Pick<ReduxState, "previewedRestaurant">
@@ -50,6 +51,15 @@ const PizzaMarker: React.FC<PizzaMarkerProps> = props => {
       <Typography onClick={ goToRestaurant }>
         { props.previewedRestaurant.name }
       </Typography>
+      <div>
+        <ReactPlayer
+          url={ `https://storage.cloud.google.com/pizzame/${ kebabCase(props.previewedRestaurant.name) }.webm` }
+          loop
+          width={ 180 }
+          height={ 100 }
+          playing
+        />
+      </div>
     </Popup>
   )
 }

@@ -3,7 +3,7 @@ import ReactMapGL, { Marker, ViewportProps, Popup } from 'react-map-gl'
 import { pick } from 'lodash'
 import { connect } from 'react-redux'
 
-import Pizza from '../assets/pizza.png'
+import Pizza from '../static/pizza.png'
 import ReduxState from '../redux/state'
 import { previewRestaurant } from '../redux/actions/restaurants.actions'
 import PizzaMarker from './PizzaMarker'

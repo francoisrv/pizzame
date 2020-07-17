@@ -31,20 +31,9 @@ async function wait() {
 }
 
 function* selectRestaurantSaga(action: ReturnType<typeof selectRestaurant>) {
-  const restaurantLatitude = action.payload.restaurant.latitude
-  const restaurantLongitude = action.payload.restaurant.longitude
-  const [mapLatitude, mapLongitude] = yield select(state => state.coords)
-  console.log({ mapLatitude })
-  const distanceFromTop = TOP - restaurantLatitude
-  yield put(setCoords([
-    TOP,
-    action.payload.restaurant.longitude
-  ]))
-  i += 0.000001
-  yield call(wait)
   // yield put(selectRestaurant(action.payload.restaurant))
   // yield put(setMapHeight(50))
-  // yield put(goToAction(RESTAURANT_PATH, { params: { restaurantName: kebabCase(action.payload.restaurant.name) } }))
+  yield put(goToAction(RESTAURANT_PATH, { params: { restaurantName: kebabCase(action.payload.restaurant.name) } }))
 }
 
 function* selectRestaurantBySlugSaga(action: ReturnType<typeof selectRestaurantBySlug>) {
