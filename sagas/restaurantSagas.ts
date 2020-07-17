@@ -3,7 +3,7 @@ import { takeLatest, put, select, call } from 'redux-saga/effects'
 import Geopoint from 'geo-point'
 import { RESTAURANT_PATH } from '../paths'
 import { setCoords, setMapHeight } from '../redux/actions/map.actions'
-import { selectRestaurant, selectRestaurantBySlug } from '../redux/actions/restaurants.actions'
+import { selectRestaurant, selectRestaurantBySlug, resetPreviewRestaurant } from '../redux/actions/restaurants.actions'
 import { goToAction } from '../redux/actions/router.actions'
 import { ReduxActionType } from '../redux/types'
 import GeoPoint from 'geo-point'
@@ -31,8 +31,11 @@ async function wait() {
 }
 
 function* selectRestaurantSaga(action: ReturnType<typeof selectRestaurant>) {
-  // yield put(selectRestaurant(action.payload.restaurant))
-  // yield put(setMapHeight(50))
+  yield put(setCoords([
+    action.payload.restaurant.latitude,
+    action.payload.restaurant.longitude
+  ]))
+  // yield put(resetPreviewRestaurant())
   yield put(goToAction(RESTAURANT_PATH, { params: { restaurantName: kebabCase(action.payload.restaurant.name) } }))
 }
 

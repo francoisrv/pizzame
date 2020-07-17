@@ -2,21 +2,25 @@
   {
     "name": "Pizza By Toni",
     "latitude": 51.512495099999995,
-    "longitude": -0.0844952
+    "longitude": -0.0844952,
+    "ratings": 5
   },
   {
     "name": "Napoli Pizza",
     "latitude": 51.5104951,
-    "longitude": -0.0784952
+    "longitude": -0.0784952,
+    "ratings": 3
   },
   {
     "name": "Pizza Heaven",
     "latitude": 51.518495099999996,
-    "longitude": -0.08649520000000001
+    "longitude": -0.08649520000000001,
+    "ratings": 3.5
   },
   {
     "name": "Little Italy",
     "latitude": 51.5194951,
-    "longitude": -0.08849520000000001
+    "longitude": -0.08849520000000001,
+    "ratings": 4.5
   }
 ]

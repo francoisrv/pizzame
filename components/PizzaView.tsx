@@ -3,7 +3,6 @@ import ReactMapGL, { Marker, ViewportProps, Popup } from 'react-map-gl'
 import { pick } from 'lodash'
 import { connect } from 'react-redux'
 
-import Pizza from '../static/pizza.png'
 import ReduxState from '../redux/state'
 import { previewRestaurant } from '../redux/actions/restaurants.actions'
 import PizzaMarker from './PizzaMarker'
@@ -59,8 +58,8 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
     setViewport({
       latitude: props.coords[0],
       longitude: props.coords[1],
-      width: '100vw',
-      height: `100%`,
+      width: '50%',
+      height: `100vh`,
       zoom: 15
     })
   }, [props])
@@ -78,7 +77,7 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
           <div>
             <img
               className="rotate"
-              src={ Pizza }
+              src="https://storage.cloud.google.com/pizzame/pizza.png"
               onClick={ () => props.previewRestaurantAction(restaurant) }
               style={{
                 marginTop: -20

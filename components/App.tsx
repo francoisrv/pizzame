@@ -11,6 +11,7 @@ import RestaurantView from './Restaurant'
 
 type AppStore =
 & Pick<ReduxState, "mapHeight">
+& Pick<ReduxState, "selectedRestaurant">
 
 interface AppActions {
   selectRestaurantBySlugAction: typeof selectRestaurantBySlug
@@ -20,31 +21,13 @@ type AppProps =
 & AppActions
 & AppStore
 
-const connector = (state: ReduxState): AppStore => pick(state, ['mapHeight'])
+const connector = (state: ReduxState): AppStore => pick(state, ['mapHeight', 'selectedRestaurant'])
 
 const actions: AppActions = {
   selectRestaurantBySlugAction: selectRestaurantBySlug
 }
 
 const withStore = connect(connector, actions)
-
-const style: React.CSSProperties = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  zIndex: 100,
-  outline: '5px solid black'
-}
-
-const pageStyle: React.CSSProperties = {
-  position: 'absolute',
-  top: '20vh',
-  left: 0,
-  bottom: 0,
-  right: 0
-}
 
 const App: React.FC<AppProps> = props => {
   React.useEffect(() => {
@@ -55,11 +38,19 @@ const App: React.FC<AppProps> = props => {
   }, [props])
   
   return (
-    <div>
-      <div style={{ ...style, top: -props.mapHeight }}>
-        <PizzaView />
-      </div>
-      <div style={ pageStyle }>
+    <div
+      style={{
+        position: 'relative',
+        width: '200vw',
+        height: '100vh',
+        transform: `translateX(-${ Boolean(props.selectedRestaurant) ? '100' : '0' }vw)`,
+        transition: 'all 0.5s ease-out',
+        overflow: 'hidden',
+        display: 'flex'
+      }}
+    >
+      <PizzaView />
+      <div style={{ width: '50%' }}>
         <Switch>
           <Route
             path="/restaurants/:restaurantName"
