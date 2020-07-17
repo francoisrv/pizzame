@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Pizza 4 Staggione",
+    "ingredients": [
+      "basil",
+      "tomato",
+      "anchovie",
+      "onion"
+    ],
+    "price": 6.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza1.jpg",
+    "cols": 2
+  },
+  {
+    "name": "Pepperoni",
+    "ingredients": [
+      "blue cheese",
+      "pepperoni",
+      "parmesan cheese",
+      "basil"
+    ],
+    "price": 7.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza4.jpg",
+    "cols": 1
+  },
+  {
+    "name": "Pineapple",
+    "ingredients": [
+      "pineapple",
+      "pepperoni",
+      "parmesan cheese",
+      "basil"
+    ],
+    "price": 7.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza2.jpg",
+    "cols": 1
+  },
+  {
+    "name": "Regina",
+    "ingredients": [
+      "ham",
+      "mushrooms",
+      "parmesan cheese",
+      "basil"
+    ],
+    "price": 8.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza5.jpg",
+    "cols": 1
+  },
+  {
+    "name": "Caprese",
+    "ingredients": [
+      "olives",
+      "artichokes",
+      "parmesan cheese",
+      "basil"
+    ],
+    "price": 9.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza3.jpg",
+    "cols": 1
+  },
+  {
+    "name": "Norvegian",
+    "ingredients": [
+      "Salmon",
+      "cream",
+      "parmesan cheese",
+      "basil"
+    ],
+    "price": 10.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza6.jpg",
+    "cols": 1
+  },
+  ,
+  {
+    "name": "Deluxe",
+    "ingredients": [
+      "Caviar",
+      "Beef",
+      "basil"
+    ],
+    "price": 11.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza7.jpg",
+    "cols": 2
+  }
+]

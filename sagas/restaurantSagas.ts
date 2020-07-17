@@ -8,34 +8,7 @@ import { goToAction } from '../redux/actions/router.actions'
 import { ReduxActionType } from '../redux/types'
 import GeoPoint from 'geo-point'
 
-const TOP = 51.5060951
-const BOTTOM = 51.5259000
-const HALF = TOP - ((TOP - BOTTOM) / 2)
-const CENTER = 1500
-
-function positionMapForRestaurantSelection(
-  mapTop: number,
-  restaurantLatitude: number,
-  distanceFromTop: number
-) {
-  const restaurantDistanceFromTop = new GeoPoint(restaurantLatitude, 0).calculateDistance(new Geopoint(mapTop, 0))
-  console.log(restaurantDistanceFromTop)
-  const nextY = new GeoPoint(restaurantLatitude, 0).calculateDestination(0, restaurantDistanceFromTop)
-  console.log(nextY)
-}
-
-let i = 0.000001
-
-async function wait() {
-  return new Promise(resolve => setTimeout(resolve, 1000))
-}
-
 function* selectRestaurantSaga(action: ReturnType<typeof selectRestaurant>) {
-  yield put(setCoords([
-    action.payload.restaurant.latitude,
-    action.payload.restaurant.longitude
-  ]))
-  // yield put(resetPreviewRestaurant())
   yield put(goToAction(RESTAURANT_PATH, { params: { restaurantName: kebabCase(action.payload.restaurant.name) } }))
 }
 

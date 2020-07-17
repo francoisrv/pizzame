@@ -6,6 +6,7 @@ import ReactPlayer from 'react-player'
 import { kebabCase, pick } from 'lodash'
 import ReduxState from '../redux/state'
 import Typography from '@material-ui/core/Typography'
+import MenuView from './Menu'
 
 type RestaurantStore =
 Pick<ReduxState, 'selectedRestaurant'>
@@ -57,6 +58,7 @@ const RestaurantView: React.FC<RestaurantViewProps> = props => {
       <Typography variant="h3">
         Menu
       </Typography>
+      <MenuView />
     </div>
   )
 }
