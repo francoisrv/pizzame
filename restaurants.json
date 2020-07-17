@@ -13,7 +13,7 @@
   },
   {
     "name": "Pizza Heaven",
-    "latitude": 51.518495099999996,
+    "latitude": 51.518495199999996,
     "longitude": -0.08649520000000001,
     "ratings": 3.5
   },
@@ -21,6 +21,42 @@
     "name": "Little Italy",
     "latitude": 51.5194951,
     "longitude": -0.08849520000000001,
+    "ratings": 4.5
+  },
+  {
+    "name": "The Godfather Of Pizzas",
+    "latitude": 51.5160597,
+    "longitude": -0.0953225,
+    "ratings": 4.5
+  },
+  {
+    "name": "Caruso Pizza",
+    "latitude": 51.518183,
+    "longitude": -0.0818687,
+    "ratings": 5
+  },
+  {
+    "name": "Bella Pizza",
+    "latitude": 51.51845,
+    "longitude": -0.0750987,
+    "ratings": 5
+  },
+  {
+    "name": "No Pineapple Pizza",
+    "latitude": 51.5169512,
+    "longitude": -0.0706314,
+    "ratings": 3.5
+  },
+  {
+    "name": "Turkish Pizza",
+    "latitude": 51.5126341,
+    "longitude": -0.0869474,
+    "ratings": 4
+  },
+  {
+    "name": "Pie And Pizza",
+    "latitude": 51.511126,
+    "longitude": -0.0982993,
     "ratings": 4.5
   }
 ]

@@ -52,11 +52,15 @@ const App: React.FC<AppProps> = props => {
       <PizzaView />
       <div style={{ width: '50%' }}>
         <Switch>
-          <Route
-            path="/restaurants/:restaurantName"
-            exact
-            component={RestaurantView}
-          />
+          {
+            props.selectedRestaurant && (
+              <Route
+                path="/restaurants/:restaurantName"
+                exact
+                component={RestaurantView}
+              />
+            )
+          }
         </Switch>
       </div>
     </div>
