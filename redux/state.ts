@@ -7,6 +7,7 @@ interface ReduxState {
   restaurants: Restaurant[]
   selectedRestaurant: Restaurant | null
   menu: Menu[]
+  cart: Menu[]
 }
 
 export default ReduxState

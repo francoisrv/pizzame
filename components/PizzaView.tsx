@@ -6,33 +6,17 @@ import { connect } from 'react-redux'
 import ReduxState from '../redux/state'
 import { previewRestaurant } from '../redux/actions/restaurants.actions'
 import PizzaMarker from './PizzaMarker'
-
-const TOKEN = 'pk.eyJ1IjoiZnJhbmxld2ViIiwiYSI6ImNqdzhjZHUyeTA4NWo0MXBkNTd4NzRhZXUifQ.-nXUbw5Lc7E7AQWptuxAhw'
-
-
-const paintLayer = {
-  'fill-extrusion-color': '#aaa',
-  'fill-extrusion-height': {
-    type: 'identity',
-    property: 'height'
-  },
-  'fill-extrusion-base': {
-    type: 'identity',
-    property: 'min_height'
-  },
-  'fill-extrusion-opacity': 0.6
-}
+import config from '../config'
 
 type PizzaViewStateProps =
 & Pick<ReduxState, "restaurants">
 & Pick<ReduxState, "coords">
-& Pick<ReduxState, "mapHeight">
 
 interface PizzaViewActions {
   previewRestaurantAction: typeof previewRestaurant
 }
 
-const connector = (state: ReduxState): PizzaViewStateProps => pick(state, ['restaurants', 'coords', 'mapHeight'])
+const connector = (state: ReduxState): PizzaViewStateProps => pick(state, ['restaurants', 'coords'])
 
 const actions: PizzaViewActions = {
   previewRestaurantAction: previewRestaurant
@@ -49,7 +33,7 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
     latitude: props.coords[0],
     longitude: props.coords[1],
     width: '100vw',
-    height: `100%`,
+    height: 'calc(100vh - 45px)',
     zoom: 15,
     transitionDuration: 3000
   })
@@ -59,7 +43,7 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
       latitude: props.coords[0],
       longitude: props.coords[1],
       width: '50%',
-      height: `100vh`,
+      height: 'calc(100vh - 45px)',
       zoom: 15
     })
   }, [props])
@@ -67,23 +51,19 @@ const PizzaView: React.FC<PizzaViewProps> = props => {
   return (
     <ReactMapGL
       { ...viewport }
-      mapboxApiAccessToken={TOKEN}
-      onViewportChange={ viewport => {
-        // setViewport(viewport)
-      } }
+      mapboxApiAccessToken={ config.mapToken }
+      onViewportChange={ viewport => { setViewport(viewport)} }
     >
       { props.restaurants.map(restaurant => (
         <Marker key={ restaurant.name } latitude={ restaurant.latitude } longitude={ restaurant.longitude }>
-          <div>
-            <img
-              className="rotate"
-              src="https://storage.cloud.google.com/pizzame/pizza.png"
-              onClick={ () => props.previewRestaurantAction(restaurant) }
-              style={{
-                marginTop: -20
-              }}
-            />
-          </div>
+          <img
+            className="rotate"
+            src="https://storage.cloud.google.com/pizzame/pizza.png"
+            onClick={ () => props.previewRestaurantAction(restaurant) }
+            style={{
+              // marginTop: -20
+            }}
+          />
         </Marker>
       )) }
       <PizzaMarker />

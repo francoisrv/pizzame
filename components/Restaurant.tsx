@@ -1,17 +1,19 @@
 import React from 'react'
-import { goToAction } from '../redux/actions/router.actions'
 import { connect } from 'react-redux'
-import { resetSelectRestaurant } from '../redux/actions/restaurants.actions'
 import ReactPlayer from 'react-player'
 import { kebabCase, pick } from 'lodash'
-import ReduxState from '../redux/state'
 import Typography from '@material-ui/core/Typography'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+
+import { goToAction } from '../redux/actions/router.actions'
+import { resetSelectRestaurant } from '../redux/actions/restaurants.actions'
+import ReduxState from '../redux/state'
 import MenuView from './Menu'
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Ratings from './Ratings'
+import { restaurantView, restaurantHeaderStyle, restaurantInnerHeaderStyle, backArrowStyle, videoParallaxContainer, videoParallaxWrapper } from '../styles/surfaces'
 
 type RestaurantStore =
-Pick<ReduxState, 'selectedRestaurant'>
+  Pick<ReduxState, 'selectedRestaurant'>
 
 interface RestaurantActions {
   goToAction: typeof goToAction,
@@ -28,86 +30,42 @@ const actions: RestaurantActions = {
 const withStore = connect(connector, actions)
 
 type RestaurantViewProps =
-& RestaurantActions
-& RestaurantStore
+  & RestaurantActions
+  & RestaurantStore
 
 const RestaurantView: React.FC<RestaurantViewProps> = props => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        width: '100vw',
-        overflow: 'auto'
-      }}
-    >
-      <header
-        style={{
-          position: 'fixed',
-          top: 0,
-          zIndex: 99,
-          backgroundColor: 'white',
-          left: '50%',
-          right: 0
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '10px 22px'
-          }}
-        >
+    <div className={ restaurantView }>
+      <header className={ restaurantHeaderStyle }>
+        <div className={ restaurantInnerHeaderStyle }>
           <ArrowBackIosIcon
-            style={{
-              fontSize: '4em',
-              color: '#ccc',
-              cursor: 'pointer'
-            }}
-            onClick={ () => {
+            className={ backArrowStyle }
+            onClick={() => {
               props.goToAction('/')
               props.resetSelectRestaurantAction()
-            } }
+            }}
           />
           <div>
             <Typography variant="h1">
-              { props.selectedRestaurant.name }
+              {props.selectedRestaurant.name}
             </Typography>
-            <Ratings ratings={ props.selectedRestaurant.ratings } size={4.5} />
+            <Ratings ratings={props.selectedRestaurant.ratings} size={4.5} />
           </div>
         </div>
       </header>
-      
-      <div
-        style={{
-          margin: 0,
-          position: 'relative',
-          height: '100%'
-        }}
-      >
-        <div
-          style={{
-            // minWidth: '100%',
-            // maxWidth: '100%',
-            width: '50%',
-            position: 'fixed',
-            top: 200,
-            // left: '42vw',
-            // right: '-40vw',
-            zIndex: -999
-          }}
-        >
+
+      <div className={ videoParallaxContainer }>
+        <div className={ videoParallaxWrapper }>
           <ReactPlayer
-            url={ `https://storage.cloud.google.com/pizzame/${ kebabCase(props.selectedRestaurant.name) }.webm` }
+            url={`https://storage.cloud.google.com/pizzame/${kebabCase(props.selectedRestaurant.name)}.webm`}
             loop
             width="100%"
             height="100%"
             playing
-            
           />
         </div>
-        
       </div>
-      
+
       <MenuView />
     </div>
   )

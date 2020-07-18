@@ -3,14 +3,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { compose } from 'redux'
+
 import { getPatternValue, RESTAURANT_PATH, urlMatchesPattern } from '../paths'
 import { selectRestaurantBySlug } from '../redux/actions/restaurants.actions'
 import ReduxState from '../redux/state'
 import PizzaView from './PizzaView'
 import RestaurantView from './Restaurant'
+import { mainSurface, pageSurface } from '../styles/surfaces'
+import Appbar from './Appbar'
 
 type AppStore =
-& Pick<ReduxState, "mapHeight">
 & Pick<ReduxState, "selectedRestaurant">
 
 interface AppActions {
@@ -21,7 +23,7 @@ type AppProps =
 & AppActions
 & AppStore
 
-const connector = (state: ReduxState): AppStore => pick(state, ['mapHeight', 'selectedRestaurant'])
+const connector = (state: ReduxState): AppStore => pick(state, ['selectedRestaurant'])
 
 const actions: AppActions = {
   selectRestaurantBySlugAction: selectRestaurantBySlug
@@ -38,30 +40,23 @@ const App: React.FC<AppProps> = props => {
   }, [props])
   
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '200vw',
-        height: '100vh',
-        transform: `translateX(-${ Boolean(props.selectedRestaurant) ? '100' : '0' }vw)`,
-        transition: 'all 0.5s ease-out',
-        overflow: 'hidden',
-        display: 'flex'
-      }}
-    >
-      <PizzaView />
-      <div style={{ width: '50%' }}>
-        <Switch>
-          {
-            props.selectedRestaurant && (
-              <Route
-                path="/restaurants/:restaurantName"
-                exact
-                component={RestaurantView}
-              />
-            )
-          }
-        </Switch>
+    <div>
+      <Appbar />
+      <div className={ mainSurface(Boolean(props.selectedRestaurant)) }>
+        <PizzaView />
+        <div className={ pageSurface }>
+          <Switch>
+            {
+              props.selectedRestaurant && (
+                <Route
+                  path="/restaurants/:restaurantName"
+                  exact
+                  component={RestaurantView}
+                />
+              )
+            }
+          </Switch>
+        </div>
       </div>
     </div>
   )
