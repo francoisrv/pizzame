@@ -12,6 +12,7 @@ import ReactPlayer from 'react-player'
 import EmptyStarIcon from '@material-ui/icons/StarBorder'
 import FullStarIcon from '@material-ui/icons/Star'
 import HalfFullStarIcon from '@material-ui/icons/StarHalf'
+import Ratings from './Ratings'
 
 type PizzaMarkerStore =
 & Pick<ReduxState, "previewedRestaurant">
@@ -39,10 +40,6 @@ type PizzaMarkerProps =
 & RouteComponentProps<any>
 & PizzaMarkeActions
 
-function isFloat(n: number) {
-  return n === +n && n !== (n|0)
-}
-
 const PizzaMarker: React.FC<PizzaMarkerProps> = props => {
   if (!props.previewedRestaurant) {
     return <div />
@@ -50,25 +47,6 @@ const PizzaMarker: React.FC<PizzaMarkerProps> = props => {
 
   function goToRestaurant() {
     props.selectRestaurantAction(props.previewedRestaurant)
-  }
-
-  const stars: React.ReactElement<any>[] = []
-  const { ratings } = props.previewedRestaurant
-  const isHalf = isFloat(ratings)
-
-  for (let i = 0; i < (isHalf ? Math.ceil(ratings) - 1 : ratings); i++) {
-    stars.push(<FullStarIcon key={ i } style={{ color: '#ffab00' }} />)
-  }
-
-  if (isHalf) {
-    stars.push(<HalfFullStarIcon key={ Math.ceil(ratings) } style={{ color: '#ffab00' }} />)
-    for (let i = Math.ceil(ratings) + 1; i <= 5; i++) {
-      stars.push(<EmptyStarIcon key={ i + 1 } style={{ color: '#ffab00' }} />)
-    }
-  } else {
-    for (let i = Math.ceil(ratings); i < 5; i++) {
-      stars.push(<EmptyStarIcon key={ i } style={{ color: '#ffab00' }} />)
-    }
   }
 
   return (
@@ -83,7 +61,7 @@ const PizzaMarker: React.FC<PizzaMarkerProps> = props => {
           { props.previewedRestaurant.name }
         </Typography>
         <div>
-          { stars }
+          <Ratings ratings={ props.previewedRestaurant.ratings } />
         </div>
         <ReactPlayer
           url={ `https://storage.cloud.google.com/pizzame/${ kebabCase(props.previewedRestaurant.name) }.webm` }

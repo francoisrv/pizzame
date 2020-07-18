@@ -11,4 +11,5 @@ export interface Menu {
   ingredients: string[]
   image: string
   cols: number
+  rows: number
 }

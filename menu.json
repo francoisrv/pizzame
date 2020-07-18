@@ -1,5 +1,18 @@
 [
   {
+    "name": "Pizza 4 Formagi",
+    "ingredients": [
+      "basil",
+      "tomato",
+      "anchovie",
+      "onion"
+    ],
+    "price": 5.99,
+    "image": "https://storage.cloud.google.com/pizzame/pizza8.jpg",
+    "cols": 3,
+    "rows": 3
+  },
+  {
     "name": "Pizza 4 Staggione",
     "ingredients": [
       "basil",
@@ -9,7 +22,8 @@
     ],
     "price": 6.99,
     "image": "https://storage.cloud.google.com/pizzame/pizza1.jpg",
-    "cols": 2
+    "cols": 2,
+    "rows": 1
   },
   {
     "name": "Pepperoni",
@@ -21,7 +35,8 @@
     ],
     "price": 7.99,
     "image": "https://storage.cloud.google.com/pizzame/pizza4.jpg",
-    "cols": 1
+    "cols": 1,
+    "rows": 1
   },
   {
     "name": "Pineapple",
@@ -33,7 +48,8 @@
     ],
     "price": 7.99,
     "image": "https://storage.cloud.google.com/pizzame/pizza2.jpg",
-    "cols": 1
+    "cols": 1,
+    "rows": 1
   },
   {
     "name": "Regina",
@@ -45,7 +61,8 @@
     ],
     "price": 8.99,
     "image": "https://storage.cloud.google.com/pizzame/pizza5.jpg",
-    "cols": 1
+    "cols": 1,
+    "rows": 1
   },
   {
     "name": "Caprese",
@@ -57,7 +74,8 @@
     ],
     "price": 9.99,
     "image": "https://storage.cloud.google.com/pizzame/pizza3.jpg",
-    "cols": 1
+    "cols": 1,
+    "rows": 1
   },
   {
     "name": "Norvegian",
@@ -69,7 +87,8 @@
     ],
     "price": 10.99,
     "image": "https://storage.cloud.google.com/pizzame/pizza6.jpg",
-    "cols": 1
+    "cols": 1,
+    "rows": 1
   },
   ,
   {
@@ -81,6 +100,7 @@
     ],
     "price": 11.99,
     "image": "https://storage.cloud.google.com/pizzame/pizza7.jpg",
-    "cols": 2
+    "cols": 2,
+    "rows": 1
   }
 ]
