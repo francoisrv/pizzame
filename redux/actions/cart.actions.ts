@@ -7,3 +7,22 @@ export function addToCart(pizza: Menu) {
     payload: { pizza }
   }
 }
+
+export function removeFromCart(pizza: Menu) {
+  return {
+    type: ReduxActionType.REMOVE_FROM_CART as ReduxActionType.REMOVE_FROM_CART,
+    payload: { pizza }
+  }
+}
+
+export function openCart() {
+  return {
+    type: ReduxActionType.OPEN_CART as ReduxActionType.OPEN_CART
+  }
+}
+
+export function closeCart() {
+  return {
+    type: ReduxActionType.CLOSE_CART as ReduxActionType.CLOSE_CART
+  }
+}

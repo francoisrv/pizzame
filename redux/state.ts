@@ -8,6 +8,7 @@ interface ReduxState {
   selectedRestaurant: Restaurant | null
   menu: Menu[]
   cart: Menu[]
+  cartOpen: boolean
 }
 
 export default ReduxState

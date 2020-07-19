@@ -57,9 +57,7 @@ const PizzaIngredients: React.FC<PizzaIngredientsProps> = props => (
       </div>
     </DialogTitle>
     <DialogContent>
-      <div
-        
-      >
+      <div>
         <img
           src={ get(props.pizza, 'image', '') }
           style={{
@@ -85,7 +83,11 @@ const PizzaIngredients: React.FC<PizzaIngredientsProps> = props => (
       </List>
     </DialogContent>
     <DialogActions>
-      <Button color="secondary" startIcon={ <CloseIcon /> }>
+      <Button
+        color="secondary"
+        startIcon={ <CloseIcon /> }
+        onClick={ props.onClose }
+      >
         Cancel
       </Button>
       <Button

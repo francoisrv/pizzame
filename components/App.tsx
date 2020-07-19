@@ -11,6 +11,7 @@ import PizzaView from './PizzaView'
 import RestaurantView from './Restaurant'
 import { mainSurface, pageSurface } from '../styles/surfaces'
 import Appbar from './Appbar'
+import Cart from './Cart'
 
 type AppStore =
 & Pick<ReduxState, "selectedRestaurant">
@@ -58,6 +59,7 @@ const App: React.FC<AppProps> = props => {
           </Switch>
         </div>
       </div>
+      <Cart />
     </div>
   )
 }

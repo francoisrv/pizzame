@@ -13,3 +13,7 @@ export interface Menu {
   cols: number
   rows: number
 }
+
+export interface PizzaCart extends Menu {
+  quantity: number
+}
