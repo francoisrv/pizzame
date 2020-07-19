@@ -22,25 +22,25 @@ interface CartItemActions {
   removeFromCartAction: typeof removeFromCart
 }
 
-type CartItemProps =
-& PizzaCart
-& CartItemActions
+type CartItemProps = PizzaCart & CartItemActions
 
 const actions: CartItemActions = {
   addToCartAction: addToCart,
-  removeFromCartAction: removeFromCart
+  removeFromCartAction: removeFromCart,
 }
 
 const withStore = connect(null, actions)
 
-const CartItem: React.FC<CartItemProps> = props => {
+const CartItem: React.FC<CartItemProps> = (props) => {
   const [open, setOpen] = React.useState(false)
   const handleClick = () => {
-    setOpen(!open);
+    setOpen(!open)
   }
-  let price = `€${ props.price }`
+  let price = `€${props.price}`
   if (props.quantity > 1) {
-    price += ` x ${ props.quantity } = €${ (props.price * props.quantity).toFixed(2) }`
+    price += ` x ${props.quantity} = €${(props.price * props.quantity).toFixed(
+      2
+    )}`
   }
   const onChangeQuality = (qty: number) => {
     const pizza = omit(props, ['addToCartActions']) as Menu
@@ -53,26 +53,24 @@ const CartItem: React.FC<CartItemProps> = props => {
 
   return (
     <>
-      <ListItem button onClick={ handleClick }>
-        <ListItemText primary={ props.name } secondary={ price } />
+      <ListItem button onClick={handleClick}>
+        <ListItemText primary={props.name} secondary={price} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={ open }>
+      <Collapse in={open}>
         <List>
-          {
-            props.ingredients.map(ingredient => (
-              <ListItem key={ ingredient }>
-                <ListItemText primary={ ingredient } />
-              </ListItem>
-            ))
-          }
+          {props.ingredients.map((ingredient) => (
+            <ListItem key={ingredient}>
+              <ListItemText primary={ingredient} />
+            </ListItem>
+          ))}
         </List>
         <div>
           <TextField
             variant="outlined"
-            value={ props.quantity }
+            value={props.quantity}
             type="number"
-            onChange={ e => onChangeQuality(Number(e.target.value)) }
+            onChange={(e) => onChangeQuality(Number(e.target.value))}
             label="Quantity"
           />
         </div>

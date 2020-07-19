@@ -4,64 +4,80 @@ import ReactPlayer from 'react-player'
 import { kebabCase, pick } from 'lodash'
 import Typography from '@material-ui/core/Typography'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import { useMediaQuery } from 'react-responsive'
 
 import { goToAction } from '../redux/actions/router.actions'
 import { resetSelectRestaurant } from '../redux/actions/restaurants.actions'
 import ReduxState from '../redux/state'
 import MenuView from './Menu'
 import Ratings from './Ratings'
-import { restaurantView, restaurantHeaderStyle, restaurantInnerHeaderStyle, backArrowStyle, videoParallaxContainer, videoParallaxWrapper } from '../styles/surfaces'
+import {
+  backArrowStyle,
+  restaurantHeaderStyle,
+  restaurantInnerHeaderStyle,
+  restaurantView,
+  videoParallaxContainer,
+  videoParallaxWrapper,
+  header1Style,
+} from '../styles/surfaces'
 
-type RestaurantStore =
-  Pick<ReduxState, 'selectedRestaurant'>
+type RestaurantStore = Pick<ReduxState, 'selectedRestaurant'>
 
 interface RestaurantActions {
-  goToAction: typeof goToAction,
+  goToAction: typeof goToAction
   resetSelectRestaurantAction: typeof resetSelectRestaurant
 }
 
-const connector = (state: ReduxState): RestaurantStore => pick(state, ['selectedRestaurant'])
+const connector = (state: ReduxState): RestaurantStore =>
+  pick(state, ['selectedRestaurant'])
 
 const actions: RestaurantActions = {
   goToAction,
-  resetSelectRestaurantAction: resetSelectRestaurant
+  resetSelectRestaurantAction: resetSelectRestaurant,
 }
 
 const withStore = connect(connector, actions)
 
-type RestaurantViewProps =
-  & RestaurantActions
-  & RestaurantStore
+type RestaurantViewProps = RestaurantActions & RestaurantStore
 
-const RestaurantView: React.FC<RestaurantViewProps> = props => {
+const RestaurantView: React.FC<RestaurantViewProps> = (props) => {
+  const isMobile = useMediaQuery({
+    query: '(max-device-width: 500px)',
+  })
+
   return (
-    <div className={ restaurantView }>
-      <header className={ restaurantHeaderStyle }>
-        <div className={ restaurantInnerHeaderStyle }>
+    <div className={restaurantView}>
+      <header className={restaurantHeaderStyle}>
+        <div className={restaurantInnerHeaderStyle}>
           <ArrowBackIosIcon
-            className={ backArrowStyle }
+            className={backArrowStyle}
             onClick={() => {
               props.goToAction('/')
               props.resetSelectRestaurantAction()
             }}
           />
           <div>
-            <Typography variant="h1">
+            <Typography className={header1Style}>
               {props.selectedRestaurant.name}
             </Typography>
-            <Ratings ratings={props.selectedRestaurant.ratings} size={4.5} />
+            <Ratings
+              ratings={props.selectedRestaurant.ratings}
+              size={isMobile ? 2 : 4.5}
+            />
           </div>
         </div>
       </header>
 
-      <div className={ videoParallaxContainer }>
-        <div className={ videoParallaxWrapper }>
+      <div className={videoParallaxContainer}>
+        <div className={videoParallaxWrapper}>
           <ReactPlayer
-            url={`https://storage.cloud.google.com/pizzame/${kebabCase(props.selectedRestaurant.name)}.webm`}
-            loop
-            width="100%"
             height="100%"
+            loop
             playing
+            url={`https://storage.cloud.google.com/pizzame/${kebabCase(
+              props.selectedRestaurant.name
+            )}.webm`}
+            width="100%"
           />
         </div>
       </div>

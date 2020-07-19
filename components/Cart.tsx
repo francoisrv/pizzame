@@ -13,54 +13,50 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import { groupPizzas, calculatePrice } from '../utils'
 import { DialogActions } from '@material-ui/core'
 
-type CartStore =
-& Pick<ReduxState, "cartOpen">
-& Pick<ReduxState, "cart">
+type CartStore = Pick<ReduxState, 'cartOpen'> & Pick<ReduxState, 'cart'>
 
 interface CartActions {
   closeCartAction: typeof closeCart
 }
 
-type CartProps =
-& CartStore
-& CartActions
+type CartProps = CartStore & CartActions
 
-const connector = (state: ReduxState): CartStore => pick(state, ['cartOpen', 'cart'])
+const connector = (state: ReduxState): CartStore =>
+  pick(state, ['cartOpen', 'cart'])
 
 const actions: CartActions = {
-  closeCartAction: closeCart
+  closeCartAction: closeCart,
 }
 
 const withStore = connect(connector, actions)
 
-const Cart: React.FC<CartProps> = props => {
+const Cart: React.FC<CartProps> = (props) => {
   const pizzas = groupPizzas(props.cart)
   const price = calculatePrice(props.cart)
 
   return (
-    <Dialog
-      open={ props.cartOpen }
-      onClose={ props.closeCartAction }
-    >
+    <Dialog open={props.cartOpen} onClose={props.closeCartAction}>
       <DialogTitle>
         <AddShoppingCartIcon />
-        Cart x{ props.cart.length }
+        Cart x{props.cart.length}
       </DialogTitle>
       <DialogContent>
         <List>
-          {
-            pizzas.map((pizza, index) => (
-              <CartItem key={ index } { ...pizza } />
-            ))
-          }
+          {pizzas.map((pizza, index) => (
+            <CartItem key={index} {...pizza} />
+          ))}
         </List>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="secondary" onClick={ props.closeCartAction }>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={props.closeCartAction}
+        >
           Close
         </Button>
         <Button variant="contained" color="primary">
-          Check out €{ price.toFixed(2) }
+          Check out €{price.toFixed(2)}
         </Button>
       </DialogActions>
     </Dialog>

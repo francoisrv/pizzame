@@ -2,7 +2,8 @@
   "name": "pizzame",
   "version": "1.0.0",
   "scripts": {
-    "start": "rm -rf dist .cache && parcel --hmr-port $HMR_PORT --https index.html"
+    "start": "rm -rf dist .cache && parcel --https index.html",
+    "eslint": "eslint --fix ."
   },
   "browserslist": {
     "production": [
@@ -39,6 +40,7 @@
     "react-mapbox-gl": "^4.8.6",
     "react-player": "^2.5.0",
     "react-redux": "^7.2.0",
+    "react-responsive": "^8.1.0",
     "react-router-dom": "^5.2.0",
     "react-scroll-parallax": "^2.3.4",
     "redux": "^4.0.5",
@@ -56,6 +58,7 @@
     "describe-react": "^1.2.23",
     "jest": "^26.1.0",
     "parcel-plugin-static-files-copy": "^2.4.3",
+    "prettier": "2.0.5",
     "react-test-renderer": "^16.13.1",
     "typescript": "^3.9.6"
   }

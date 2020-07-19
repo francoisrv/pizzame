@@ -29,40 +29,40 @@ interface PizzaIngredientsActions {
   addToCartAction: typeof addToCart
 }
 
-type PizzaIngredientsProps =
-& PizzaIngredientsOwnProps
-& PizzaIngredientsActions
+type PizzaIngredientsProps = PizzaIngredientsOwnProps & PizzaIngredientsActions
 
 const actions: PizzaIngredientsActions = {
-  addToCartAction: addToCart
+  addToCartAction: addToCart,
 }
 
 const withStore = connect(null, actions)
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
-  ref: React.Ref<unknown>,
+  ref: React.Ref<unknown>
 ) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />
 })
 
-const PizzaIngredients: React.FC<PizzaIngredientsProps> = props => (
-  <Dialog open={ props.open } onClose={ props.onClose } TransitionComponent={Transition}>
+const PizzaIngredients: React.FC<PizzaIngredientsProps> = (props) => (
+  <Dialog
+    open={props.open}
+    onClose={props.onClose}
+    TransitionComponent={Transition}
+  >
     <DialogTitle>
-      <div>
-        { get(props.pizza, 'name', '') }
-      </div>
+      <div>{get(props.pizza, 'name', '')}</div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Typography>€{ get(props.pizza, 'price') }</Typography>
+        <Typography>€{get(props.pizza, 'price')}</Typography>
       </div>
     </DialogTitle>
     <DialogContent>
       <div>
         <img
-          src={ get(props.pizza, 'image', '') }
+          src={get(props.pizza, 'image', '')}
           style={{
             height: 200,
-            width: 300
+            width: 300,
           }}
         />
       </div>
@@ -73,25 +73,23 @@ const PizzaIngredients: React.FC<PizzaIngredientsProps> = props => (
           </ListSubheader>
         }
       >
-        {
-          get(props.pizza, 'ingredients', []).map(ingredient => (
-            <ListItem key={ ingredient }>
-              <ListItemText primary={ ingredient } />
-            </ListItem>
-          ))
-        }
+        {get(props.pizza, 'ingredients', []).map((ingredient) => (
+          <ListItem key={ingredient}>
+            <ListItemText primary={ingredient} />
+          </ListItem>
+        ))}
       </List>
     </DialogContent>
     <DialogActions>
       <Button
         color="secondary"
-        startIcon={ <CloseIcon /> }
-        onClick={ props.onClose }
+        startIcon={<CloseIcon />}
+        onClick={props.onClose}
       >
         Cancel
       </Button>
       <Button
-        startIcon={ <AddShoppingCartIcon /> }
+        startIcon={<AddShoppingCartIcon />}
         color="primary"
         onClick={() => {
           props.addToCartAction(props.pizza)
